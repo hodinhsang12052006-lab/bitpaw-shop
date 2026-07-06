@@ -56,7 +56,7 @@
             
             <!-- Logo & Brand Title -->
             <a href="/" class="flex items-center space-x-3 shrink-0">
-                <img src="/cho1.jpg" alt="Logo" class="w-9 h-9 rounded-lg object-cover border border-blue-500/30" onerror="this.outerHTML='<i class=\'fa-solid fa-layer-group text-3xl text-blue-500\'></i>'">
+                <img src="/cho1.jpg" alt="Logo" class="w-9 h-9 rounded-lg object-cover border border-blue-500/30" onerror="this.outerHTML=&apos;<i class=&quot;fa-solid fa-layer-group text-3xl text-blue-500&quot;></i>&apos;">
                 <div class="hidden sm:block">
                     <span class="text-lg font-bold text-white tracking-wider">BITPAW</span>
                     <span class="text-xs block leading-none font-bold text-gray-500 uppercase tracking-widest">RESOURCES</span>
@@ -442,7 +442,7 @@
                 
                 let iconHtml = '<i class="fa-solid fa-tag text-xs"></i>';
                 if (c.icon) {
-                    iconHtml = `<img src="${c.icon}" class="w-4 h-4 rounded object-cover" onerror="this.outerHTML='<i class=\'fa-solid fa-tag text-xs\'></i>'"/>`;
+                    iconHtml = `<img src="${c.icon}" class="w-4 h-4 rounded object-cover" onerror="this.outerHTML=&apos;<i class=&quot;fa-solid fa-tag text-xs&quot;></i>&apos;"/>`;
                 }
                 btn.innerHTML = `${iconHtml} ${c.name.toUpperCase()}`;
                 container.appendChild(btn);
@@ -479,7 +479,7 @@
 
                 let iconHtml = '<i class="fa-solid fa-chevron-right text-xs text-[#1976d2]"></i>';
                 if (category.icon) {
-                    iconHtml = `<img src="${category.icon}" class="w-5 h-5 rounded object-cover" onerror="this.outerHTML='<i class=\'fa-solid fa-store\'></i>'"/>`;
+                    iconHtml = `<img src="${category.icon}" class="w-5 h-5 rounded object-cover" onerror="this.outerHTML=&apos;<i class=&quot;fa-solid fa-store&quot;></i>&apos;"/>`;
                 }
 
                 let cardsHtml = '';
