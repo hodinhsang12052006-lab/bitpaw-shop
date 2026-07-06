@@ -366,19 +366,20 @@
         // 1. Fetch User Profile & Balance
         async function fetchUserProfile() {
             if (!jwtToken) return;
-            try {
-                const res = await fetch('/api/auth/me', {
-                    headers: { 'Authorization': `Bearer ${jwtToken}` }
-                });
-                const data = await res.json();
-                if (data.success) {
-                    userProfile = data.user;
-                    document.getElementById('nav-username').textContent = userProfile.username;
-                    document.getElementById('nav-balance').textContent = `$${parseFloat(userProfile.balance).toFixed(2)}`;
-                }
-            } catch (err) {
-                console.error('Lỗi khi lấy thông tin user:', err);
-            }
+            fetch('/api/auth/me', {
+              headers: { 'Authorization': 'Bearer ' + localStorage.getItem('bitpaw_token') }
+            })
+            .then(res => res.json())
+            .then(data => {
+              if (data.balance !== undefined) {
+                document.getElementById('nav-balance').innerText = '$' + data.balance.toLocaleString();
+                document.getElementById('nav-username').innerText = data.username;
+              }
+              if (data.user) {
+                userProfile = data.user;
+              }
+            })
+            .catch(err => console.log('Loi dong bo tien:', err));
         }
 
         // 2. Fetch products

@@ -66,7 +66,7 @@ async function verifyUser(req, res, next) {
                 username: 'khach_mmo',
                 email: 'khach_mmo@example.com',
                 phone: '0555555555',
-                balance: 9999.99,
+                balance: 0.00,
                 role: 'admin'
             };
         } else {
@@ -83,9 +83,14 @@ async function verifyUser(req, res, next) {
     }
 }
 
-// 1. API lấy thông tin Profile & Số dư
+// 1. API lấy thông tin Profile & Số dư (Hỗ trợ cả lồng trong user và phẳng trực tiếp ở root)
 app.get('/api/auth/me', verifyUser, (req, res) => {
-    res.json({ success: true, user: req.user });
+    res.json({ 
+        success: true, 
+        user: req.user,
+        username: req.user.username,
+        balance: req.user.balance
+    });
 });
 
 // 2. API lấy danh sách sản phẩm từ nguồn (Markup 40%)
