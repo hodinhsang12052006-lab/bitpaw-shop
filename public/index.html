@@ -340,16 +340,16 @@
         let userProfile = null;
         let activeCategory = 'ALL';
 
-        // Parse token from URL parameters or Local Storage
         const urlParams = new URLSearchParams(window.location.search);
-        const tokenFromUrl = urlParams.get('token');
-        if (tokenFromUrl) {
-            localStorage.setItem('bitpaw_token', tokenFromUrl);
-            const cleanUrl = window.location.pathname;
-            window.history.replaceState({}, document.title, cleanUrl);
+        const urlToken = urlParams.get('token');
+        if (urlToken) {
+            localStorage.setItem('bitpaw_token', urlToken);
+            // Xóa token khỏi thanh URL cho bảo mật và gọn link
+            window.history.replaceState({}, document.title, window.location.pathname);
         }
 
-        const jwtToken = localStorage.getItem('bitpaw_token');
+        const token = localStorage.getItem('bitpaw_token');
+        const jwtToken = token;
 
         // Check if token exists
         document.addEventListener('DOMContentLoaded', () => {
@@ -367,19 +367,19 @@
         async function fetchUserProfile() {
             if (!jwtToken) return;
             fetch('/api/auth/me', {
-              headers: { 'Authorization': 'Bearer ' + localStorage.getItem('bitpaw_token') }
+              headers: { 'Authorization': 'Bearer ' + jwtToken }
             })
             .then(res => res.json())
             .then(data => {
-              if (data.balance !== undefined) {
-                document.getElementById('nav-balance').innerText = '$' + Math.round(data.balance).toLocaleString('en-US');
+              if (data && data.username) {
                 document.getElementById('nav-username').innerText = data.username;
+                document.getElementById('nav-balance').innerText = '$' + Math.round(data.balance).toLocaleString('en-US');
               }
               if (data.user) {
                 userProfile = data.user;
               }
             })
-            .catch(err => console.log('Loi dong bo tien:', err));
+            .catch(err => console.log('Loi lay thong tin:', err));
         }
 
         // 2. Fetch products
