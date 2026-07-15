@@ -372,7 +372,7 @@
             .then(res => res.json())
             .then(data => {
               if (data.balance !== undefined) {
-                document.getElementById('nav-balance').innerText = '$' + data.balance.toLocaleString();
+                document.getElementById('nav-balance').innerText = '$' + Math.round(data.balance).toLocaleString('en-US');
                 document.getElementById('nav-username').innerText = data.username;
               }
               if (data.user) {
@@ -509,7 +509,7 @@
                             <div>
                                 <!-- Giá tiền ĐỎ CHÓT text-base font-semibold -->
                                 <div class="text-red-500 text-base font-semibold my-2 font-mono">
-                                    ${parseFloat(p.priceVND).toLocaleString('vi-VN')} đ
+                                    ${Math.round(p.priceVND).toLocaleString('en-US')} đ
                                 </div>
                                 
                                 <!-- Khu vực nút bấm chia đôi -->
@@ -572,7 +572,7 @@
             document.getElementById('modal-product-name').textContent = product.name;
             document.getElementById('modal-product-country').textContent = `${product.flag || '🇻🇳'} ${product.country || 'Việt Nam'}`;
             document.getElementById('modal-product-stock').textContent = `${product.stock} cái`;
-            document.getElementById('modal-product-price').textContent = `${parseFloat(product.priceVND).toLocaleString('vi-VN')} đ`;
+            document.getElementById('modal-product-price').textContent = `${Math.round(product.priceVND).toLocaleString('en-US')} đ`;
             document.getElementById('buy-quantity').value = 1;
             
             updateModalTotal();
@@ -589,7 +589,7 @@
             const qty = parseInt(document.getElementById('buy-quantity').value) || 0;
             const totalVND = qty * selectedProduct.priceVND;
             const totalUSD = qty * selectedProduct.priceUSD;
-            document.getElementById('modal-total-charge').textContent = `${totalVND.toLocaleString('vi-VN')} đ (~ $${totalUSD.toFixed(2)})`;
+            document.getElementById('modal-total-charge').textContent = `${Math.round(totalVND).toLocaleString('en-US')} đ (~ $${Math.round(totalUSD).toLocaleString('en-US')})`;
         }
 
         // 7. Details Modal
@@ -692,7 +692,7 @@
                             <td class="p-4 pl-6 font-mono font-bold text-gray-500">${order._id.slice(-8).toUpperCase()}</td>
                             <td class="p-4 font-bold text-white">${order.productName}</td>
                             <td class="p-4 text-center font-bold text-gray-300 font-mono">${order.quantity} cái</td>
-                            <td class="p-4 text-right font-semibold text-blue-400 font-mono">$${parseFloat(order.charge).toFixed(2)}</td>
+                            <td class="p-4 text-right font-semibold text-blue-400 font-mono">$${Math.round(order.charge).toLocaleString('en-US')}</td>
                             <td class="p-4 text-gray-400 text-[11px]">${date}</td>
                             <td class="p-4 text-center">
                                 <button onclick="showOrderDelivery(\`${accountsText.replace(/`/g, '\\`').replace(/"/g, '&quot;')}\`)" 
