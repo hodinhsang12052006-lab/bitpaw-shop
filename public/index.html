@@ -340,11 +340,13 @@
         let userProfile = null;
         let activeCategory = 'ALL';
 
+        // Token đăng nhập từ Dashboard: ưu tiên đọc sau dấu # (phần này trình duyệt không gửi lên server nên
+        // không lọt vào log Vercel/Cloudflare), vẫn nhận ?token= cũ để link cũ không hỏng. Đọc xong xoá khỏi URL.
         const urlParams = new URLSearchParams(window.location.search);
-        const urlToken = urlParams.get('token');
+        const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+        const urlToken = hashParams.get('token') || urlParams.get('token');
         if (urlToken) {
             localStorage.setItem('bitpaw_token', urlToken);
-            // Xóa token khỏi thanh URL cho bảo mật và gọn link
             window.history.replaceState({}, document.title, window.location.pathname);
         }
 
